@@ -1,7 +1,7 @@
 package main;
 
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
+import gameState.GameStateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +28,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     private BufferedImage image;
     private Graphics2D g;
 
+    // Game state manager
+    private GameStateManager gsm;
+
     public GamePanel(){
         super();
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -46,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
     private void init(){
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        gsm = new GameStateManager();
     }
 
     public void run(){
@@ -77,10 +81,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     }
 
     private void update(){
-
+        gsm.update();
     }
     private void draw(){
-
+        gsm.draw(g);
     }
     private void drawToScreen(){
        Graphics g2 = getGraphics();
@@ -92,10 +96,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
     }
     public void keyPressed(KeyEvent key){
-
+        gsm.keyPressed(key.getKeyCode());
     }
     public void keyReleased(KeyEvent key){
-
+        gsm.keyReleased(key.getKeyCode());
     }
 
 }
